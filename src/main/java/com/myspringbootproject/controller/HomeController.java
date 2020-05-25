@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +27,23 @@ public class HomeController {
 		return "stories";
 	}
 	
-		private ArrayList<Story> getStories(){
+	//ha el akarunk kapni bármilyen /user/ kezdetű és dinamikus, tehát előre nem tudott adatot
+	//hogyan tudjuk a hibákat elirányítani egy bizonyos oldalra? Létrehozunk egy függvényt a hibakezelésre
+	@RequestMapping("/user/{id}")
+	public String searchForUsers(@PathVariable(value = "id") String id, Model model) throws Exception {
+		if(id == null) {
+			throw new Exception("Ilyen azonosítójú felhasználó nem létezik!");
+		}
+		return "user";
+	}
+	
+	@ExceptionHandler
+	private String handleException(HttpServletRequest request, Exception ex, Model model) {
+		model.addAttribute("errMessage", ex.getMessage());
+		return "exceptionHandler";
+	}
+	
+	private ArrayList<Story> getStories(){
 		ArrayList<Story> stories = new ArrayList<>();
 		
 		//TODO itt kell beletenni a story-kat a listába
