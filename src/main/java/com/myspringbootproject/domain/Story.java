@@ -2,14 +2,36 @@ package com.myspringbootproject.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Story {
+	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	private Long id;
+	
 	private String title;
 	private String content;
 	private Date latestUpdated;
-	private String author;
 	
-	public Story() {
+	@ManyToOne
+	private Blogger blogger;
+	
+	private Story() {
 		
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -36,17 +58,17 @@ public class Story {
 		this.latestUpdated = latestUpdated;
 	}
 
-	public String getAuthor() {
-		return author;
+	public Blogger getBlogger() {
+		return blogger;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setBlogger(Blogger blogger) {
+		this.blogger = blogger;
 	}
 
 	@Override
 	public String toString() {
-		return "Story [title=" + title + ", latestUpdated=" + latestUpdated + ", author=" + author + "]";
+		return "Story [title=" + title + ", latestUpdated=" + latestUpdated + ", author=" + blogger.getName() + "]";
 	}
 	
 	
