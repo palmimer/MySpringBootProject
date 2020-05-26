@@ -44,7 +44,8 @@ public class HomeController {
 	@RequestMapping("/bloggers")
 	public String showBloggers(Model model) throws Exception {
 		
-		model.addAllAttributes(storyService.getAllBloggers());
+		model.addAttribute("bloggers", storyService.getAllBloggers());
+		model.addAttribute("numberOfBloggers", storyService.getAllBloggers().size());
 		return "bloggers";
 	}
 	

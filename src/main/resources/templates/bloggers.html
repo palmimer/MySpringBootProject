@@ -50,17 +50,18 @@
     
  	    <section th:utext="${blogger.email}">
             <p>Default: blogger@bloggeremail.com</p>
-      		<p>Csatlakozott: <span th:text="${#dates.format(blogger.registration_date, 'yyyy.MM.dd HH:mm')}">Default text: on September 31, 2015 at 10:00 PM</span></p>
+      		
       		<p></p>
         </section>
         
         <footer>
-            <p>Összesen: <span th:text="${bloggers.size}">Default: Blogger's name</span> blogger</p>
+            <p>Csatlakozott: <span th:text="${#dates.format(blogger.registrationDate, 'yyyy.MM.dd HH:mm')}">dátum</span></p>
         </footer>
         <hr/>
     </article>
 
     <footer>
+    	<p>Összesen: <span th:text="${numberOfBloggers}">Default: number of bloggers</span> blogger</p>
         <p th:text="#{footerText}">Lábjegyzet</p>
     </footer>
 
