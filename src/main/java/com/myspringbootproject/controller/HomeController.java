@@ -53,7 +53,7 @@ public class HomeController {
 	//hogyan tudjuk a hibákat elirányítani egy bizonyos oldalra? Létrehozunk egy függvényt a hibakezelésre
 	
 	@RequestMapping("/blogger/{id}")
-	public String showBloggerpage(@PathVariable(value = "id") String id, Model model) throws Exception {
+	public String showBloggerPage(@PathVariable(value = "id") String id, Model model) throws Exception {
 		if(id == null) {
 			throw new Exception("Ilyen azonosítójú blogger nem létezik!");
 		}
@@ -68,7 +68,11 @@ public class HomeController {
 		return "exceptionHandler";
 	}
 	
-	
+	@RequestMapping("/registration")
+	public String newRegistration(HttpServletRequest request) {
+		
+		return "confirmRegistration";
+	}
 	
 	
 	

@@ -9,4 +9,6 @@ public interface BloggerRepository extends CrudRepository<Blogger, Long> {
 
 	public List<Blogger> findAll();
 	
+	
+	
 }

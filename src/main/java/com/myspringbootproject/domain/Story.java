@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
+@Entity(name="stories")
 public class Story {
 	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -25,6 +25,15 @@ public class Story {
 	private Story() {
 		
 	}
+	
+
+	public Story(String title, String content, Blogger blogger) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.blogger = blogger;
+	}
+
 
 	public Long getId() {
 		return id;

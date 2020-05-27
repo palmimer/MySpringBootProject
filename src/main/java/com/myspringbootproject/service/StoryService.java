@@ -55,4 +55,23 @@ public class StoryService {
 		Optional<Blogger> blogger = bloggerRepo.findById(id);
 		return blogger;
 	}
+	
+	public void registerNewBlogger(String name, String email) {
+		Blogger newBlogger = new Blogger(name, email);
+		bloggerRepo.save(newBlogger);
+	}
+	
+	public void saveNewStory(String title, String content, String bloggerId) {
+		Long id = Long.parseLong(bloggerId);
+		//ez dobhat egy NoSuchElementExceptiont!
+		Blogger blogger = bloggerRepo.findById(id).get();
+		
+		Story newStory = new Story(title, content, blogger);
+		storyRepo.save(newStory);
+	}
+	
+	public Story getFirstStory(Blogger blogger) {
+		
+		return storyRepo.findFirstByOrderByLatestUpdatedDesc();
+	}
 }

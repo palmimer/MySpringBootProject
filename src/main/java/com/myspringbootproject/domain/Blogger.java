@@ -1,6 +1,5 @@
 package com.myspringbootproject.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity
+@Entity(name="bloggers")
 public class Blogger {
 	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,7 +26,12 @@ public class Blogger {
 		
 	}
 
-	
+	public Blogger(String name, String email) {
+		super();
+		this.name = name;
+		this.email = email;
+	}
+
 	public Long getId() {
 		return id;
 	}
