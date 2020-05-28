@@ -1,6 +1,7 @@
 package com.myspringbootproject.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +51,19 @@ public class StoryService {
 		return bloggers;
 	}
 
-	public Optional<Blogger> findBlogger(String identifyer) {
-		Long id = Long.parseLong(identifyer);
-		Optional<Blogger> blogger = bloggerRepo.findById(id);
+	public Optional<Blogger> getBlogger(String identifyer) {
+		Optional<Blogger> blogger = null;
+		try {
+			Long id = Long.parseLong(identifyer);
+			blogger = bloggerRepo.findById(id);
+		} catch (Exception e) {
+			System.out.println("Nem megfelelő formátum!" + e);
+		}
+		return blogger;
+	}
+	
+	public Optional<Blogger> findBloggerByName(String name) {
+		Optional<Blogger> blogger = bloggerRepo.findByName(name);
 		return blogger;
 	}
 	
@@ -62,16 +73,28 @@ public class StoryService {
 	}
 	
 	public void saveNewStory(String title, String content, String bloggerId) {
-		Long id = Long.parseLong(bloggerId);
-		//ez dobhat egy NoSuchElementExceptiont!
-		Blogger blogger = bloggerRepo.findById(id).get();
-		
+		Blogger blogger = null;
+		try {
+			Long id = Long.parseLong(bloggerId);
+			//ez dobhat egy NoSuchElementExceptiont!
+			blogger = bloggerRepo.findById(id).get();
+		} catch (NumberFormatException ex) {
+			System.out.println("Nem megfelelő formátumú a blogger id!" + ex);
+		} catch (NoSuchElementException ex) {
+			System.out.println("Nem találjuk ezt a bloggert!" + ex);
+		}
 		Story newStory = new Story(title, content, blogger);
 		storyRepo.save(newStory);
 	}
 	
 	public Story getFirstStory(Blogger blogger) {
-		
 		return storyRepo.findFirstByOrderByLatestUpdatedDesc();
 	}
+
+	public Story getSingleStory(String title) {
+		storyRepo.findByTitle(title);
+		return null;
+	}
+
+	
 }

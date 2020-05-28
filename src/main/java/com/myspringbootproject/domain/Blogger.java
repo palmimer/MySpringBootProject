@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity(name="bloggers")
 public class Blogger {
 	
@@ -18,7 +20,7 @@ public class Blogger {
 	private String name;
 	private String email;
 	private Date registrationDate;
-	
+	@JsonBackReference
 	@OneToMany(mappedBy = "blogger")
 	private List<Story> stories;
 	
@@ -64,11 +66,9 @@ public class Blogger {
 		this.stories = stories;
 	}
 
-
 	public Date getRegistrationDate() {
 		return registrationDate;
 	}
-
 
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;

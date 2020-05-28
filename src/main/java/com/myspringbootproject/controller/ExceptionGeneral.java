@@ -10,6 +10,6 @@ public class ExceptionGeneral {
 	@ExceptionHandler
 	public String handleException(Exception ex, Model model) {
 		model.addAttribute("exception", ex);
-		return "whateverhandlesexceptions";
+		return "error";
 	}
 }

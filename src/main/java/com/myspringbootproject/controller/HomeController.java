@@ -20,7 +20,8 @@ import com.myspringbootproject.domain.Story;
 import com.myspringbootproject.repository.StoryRepository;
 import com.myspringbootproject.service.StoryService;
 
-//@RestController
+//@RestController (ez akkor kell, ha csak adatot adunk vissza) 
+//A @Controller VIEW-t ad vissza
 @Controller
 public class HomeController {
 	
@@ -41,26 +42,34 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("/bloggers")
-	public String showBloggers(Model model) throws Exception {
-		
-		model.addAttribute("bloggers", storyService.getAllBloggers());
-		model.addAttribute("numberOfBloggers", storyService.getAllBloggers().size());
-		return "bloggers";
-	}
+//	@RequestMapping("/bloggers")
+//	public String showBloggers(Model model) throws Exception {
+//		
+//		model.addAttribute("bloggers", storyService.getAllBloggers());
+//		model.addAttribute("numberOfBloggers", storyService.getAllBloggers().size());
+//		return "bloggers";
+//	}
 	
 	//ha el akarunk kapni bármilyen /blogger/ kezdetű és dinamikus, tehát előre nem tudott adatot
 	//hogyan tudjuk a hibákat elirányítani egy bizonyos oldalra? Létrehozunk egy függvényt a hibakezelésre
 	
-	@RequestMapping("/blogger/{id}")
-	public String showBloggerPage(@PathVariable(value = "id") String id, Model model) throws Exception {
-		if(id == null) {
-			throw new Exception("Ilyen azonosítójú blogger nem létezik!");
-		}
-		model.addAttribute("blogger", storyService.findBlogger(id));
-		return "bloggerpage";
-	}
+//	@RequestMapping("/blogger/{id}")
+//	public String showBloggerPage(@PathVariable(value = "id") String id, Model model) throws Exception {
+//		if(id == null) {
+//			throw new Exception("Ilyen azonosítójú blogger nem létezik!");
+//		}
+//		model.addAttribute("blogger", storyService.findBlogger(id));
+//		return "bloggerpage";
+//	}
 	
+	@RequestMapping("/story/{title}")
+	public String showStoryPage(@PathVariable(value = "title") String title, Model model) throws Exception {
+		if(title == null) {
+			throw new Exception("Ilyen azonosítójú story nem létezik!");
+		}
+		model.addAttribute("story", storyService.getSingleStory(title));
+		return "story";
+	}
 	
 	@ExceptionHandler
 	public String handleException(HttpServletRequest request, Exception ex, Model model) {
