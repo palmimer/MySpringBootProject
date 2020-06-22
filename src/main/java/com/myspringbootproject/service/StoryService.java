@@ -67,30 +67,30 @@ public class StoryService {
 		return blogger;
 	}
 	
-	public void registerNewBlogger(String name, String email) {
-		Blogger newBlogger = new Blogger(name, email);
-		bloggerRepo.save(newBlogger);
-	}
-	
-	public void saveNewStory(String title, String content, String bloggerId) {
-		Blogger blogger = null;
-		try {
-			Long id = Long.parseLong(bloggerId);
-			//ez dobhat egy NoSuchElementExceptiont!
-			blogger = bloggerRepo.findById(id).get();
-		} catch (NumberFormatException ex) {
-			System.out.println("Nem megfelelő formátumú a blogger id!" + ex);
-		} catch (NoSuchElementException ex) {
-			System.out.println("Nem találjuk ezt a bloggert!" + ex);
-		}
-		Story newStory = new Story(title, content, blogger);
-		storyRepo.save(newStory);
-	}
-	
-	public Story getFirstStory(Blogger blogger) {
-		return storyRepo.findFirstByOrderByLatestUpdatedDesc();
-	}
-
+//	public void registerNewBlogger(String name, String email) {
+//		Blogger newBlogger = new Blogger(name, email);
+//		bloggerRepo.save(newBlogger);
+//	}
+//	
+//	public void saveNewStory(String title, String content, String bloggerId) {
+//		Blogger blogger = null;
+//		try {
+//			Long id = Long.parseLong(bloggerId);
+//			//ez dobhat egy NoSuchElementExceptiont!
+//			blogger = bloggerRepo.findById(id).get();
+//		} catch (NumberFormatException ex) {
+//			System.out.println("Nem megfelelő formátumú a blogger id!" + ex);
+//		} catch (NoSuchElementException ex) {
+//			System.out.println("Nem találjuk ezt a bloggert!" + ex);
+//		}
+//		Story newStory = new Story(title, content, blogger);
+//		storyRepo.save(newStory);
+//	}
+//	
+//	public Story getFirstStory(Blogger blogger) {
+//		return storyRepo.findFirstByOrderByLatestUpdatedDesc();
+//	}
+//
 	public Story getSingleStory(String title) {
 		storyRepo.findByTitle(title);
 		return null;

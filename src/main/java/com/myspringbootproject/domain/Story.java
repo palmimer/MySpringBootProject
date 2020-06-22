@@ -27,11 +27,13 @@ public class Story {
 	}
 	
 
-	public Story(String title, String content, Blogger blogger) {
+	public Story(String title, String content, Date latestUpdated, Blogger blogger) {
 		super();
 		this.title = title;
 		this.content = content;
+		this.latestUpdated = latestUpdated;
 		this.blogger = blogger;
+		
 	}
 
 
